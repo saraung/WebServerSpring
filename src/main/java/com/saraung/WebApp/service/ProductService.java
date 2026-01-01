@@ -1,6 +1,8 @@
 package com.saraung.WebApp.service;
 
 import com.saraung.WebApp.model.Product;
+import com.saraung.WebApp.repository.ProductRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,44 +12,38 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    List<Product>products=new ArrayList<>(Arrays.asList(
-            new Product(101,"Iphone",50000),
-            new Product(102,"Sony Camera",30000),
-            new Product(103,"mac book",80000)));
+    @Autowired
+    ProductRepo productRepo;
+
+//    List<Product>products=new ArrayList<>(Arrays.asList(
+//            new Product(101,"Iphone",50000),
+//            new Product(102,"Sony Camera",30000),
+//            new Product(103,"mac book",80000)));
 
     public List<Product> getProducts(){
-        return products;
+
+        return productRepo.findAll();
     }
 
     public Product getProductById(int prodId) {
-        return products.stream().filter(p->p.getProdId()==prodId).findFirst().get();
+        return productRepo.findById(prodId).orElse(new Product());
     }
 
     public String addProduct(Product prod){
-        products.add(prod);
+        productRepo.save(prod);
         return "product added";
     }
 
     public String updateProduct(Product updatedProduct) {
 
-        Product existingProduct = products.stream()
-                .filter(p -> p.getProdId() == updatedProduct.getProdId())
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Product not found"));
-
-        existingProduct.setProdName(updatedProduct.getProdName());
-        existingProduct.setPrice(updatedProduct.getPrice());
+        productRepo.save(updatedProduct);
 
         return "product updated";
     }
 
     public String deleteProduct(int prodId) {
 
-        boolean removed = products.removeIf(p -> p.getProdId() == prodId);
-
-        if (!removed) {
-            throw new RuntimeException("Product not found");
-        }
+        productRepo.deleteById(prodId);
 
         return "product deleted";
     }
