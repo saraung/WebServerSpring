@@ -1,6 +1,6 @@
 package com.saraung.WebApp.repository;
 
-import com.saraung.WebApp.model.Product;
+import com.saraung.WebApp.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

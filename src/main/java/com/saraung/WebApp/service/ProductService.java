@@ -1,7 +1,7 @@
 package com.saraung.WebApp.service;
 
 import com.saraung.WebApp.config.ImageKitService;
-import com.saraung.WebApp.model.Product;
+import com.saraung.WebApp.entity.Product;
 import com.saraung.WebApp.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
