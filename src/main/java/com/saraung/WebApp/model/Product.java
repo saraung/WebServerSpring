@@ -35,5 +35,6 @@ public class Product {
         ZonedDateTime istTime = ZonedDateTime.now(ZoneId.of("Asia/Kolkata"));
         this.createdAt = Date.from(istTime.toInstant());
     }
+    private String imageUrl;
 
 }
